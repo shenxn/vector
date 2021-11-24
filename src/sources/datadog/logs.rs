@@ -5,6 +5,7 @@ use crate::{
     internal_events::EventsReceived,
     sources::datadog::agent::{decode, handle_request, ApiKeyExtractor, ApiKeyQueryParams},
     sources::util::{ErrorMessage, TcpError},
+    vector_core::ByteSizeOf,
     Pipeline,
 };
 use bytes::{BufMut, Bytes, BytesMut};

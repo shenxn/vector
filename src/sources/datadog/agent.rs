@@ -2,8 +2,8 @@ use crate::{
     codecs,
     event::Event,
     internal_events::HttpDecompressError,
-    sources::util::ErrorMessage,
     sources::datadog::{logs, traces},
+    sources::util::ErrorMessage,
     Pipeline,
 };
 use bytes::{Buf, Bytes};

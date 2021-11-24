@@ -1,6 +1,8 @@
 use crate::{
     codecs::{DecodingConfig, FramingConfig, ParserConfig},
-    config::{AcknowledgementsConfig, DataType, GenerateConfig, Resource, SourceConfig, SourceContext},
+    config::{
+        AcknowledgementsConfig, DataType, GenerateConfig, Resource, SourceConfig, SourceContext,
+    },
     serde::{bool_or_struct, default_decoding, default_framing_message_based},
     sources,
     sources::datadog::agent::DatadogAgentSource,
@@ -53,8 +55,12 @@ impl GenerateConfig for DatadogAgentConfig {
 impl SourceConfig for DatadogAgentConfig {
     async fn build(&self, cx: SourceContext) -> crate::Result<sources::Source> {
         let decoder = DecodingConfig::new(self.framing.clone(), self.decoding.clone()).build()?;
-        let source =
-            DatadogAgentSource::new(self.acknowledgements.enabled, cx.out, self.store_api_key, decoder);
+        let source = DatadogAgentSource::new(
+            self.acknowledgements.enabled,
+            cx.out,
+            self.store_api_key,
+            decoder,
+        );
 
         let tls = MaybeTlsSettings::from_config(&self.tls, true)?;
         let listener = tls.bind(&self.address).await?;
